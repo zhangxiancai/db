@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class Controller {
 
-    RedisDao redisDao=new RedisDao();
-    MongoDBDao mongoDBDao=new MongoDBDao();
+
+
     @RequestMapping("/xx")
     @ResponseBody
     public String Helloworld(){
@@ -31,6 +31,7 @@ public class Controller {
     @ResponseBody
     public List<Map<String,Object>> getMysql(){
 
+        //MysqlDao.createDatabase();
         MysqlDao.createTable();
         MysqlDao.insertNews();
         List<Map<String,Object>> news= MysqlDao.getAllNews();
@@ -43,7 +44,7 @@ public class Controller {
     @RequestMapping("/redis")
     @ResponseBody
     public String getRedis(){
-
+        RedisDao redisDao=new RedisDao();
         redisDao.set("name","redis");
         return redisDao.get("name");
 
@@ -52,9 +53,9 @@ public class Controller {
     @RequestMapping("/mongodb")
     @ResponseBody
     public String getMongodb(){
-
+        MongoDBDao mongoDBDao=new MongoDBDao();
         mongoDBDao.insert("name","mongodb");
-        return redisDao.get("name");
+        return mongoDBDao.get();
 
     }
 

@@ -14,7 +14,7 @@ public class DBUtil {
 		String username=System.getenv("MYSQL_USERNAME");
 		String password=System.getenv("MYSQL_PASSWORD");
 		String db="test";
-		String url="jdbc:mysql://" + address + ":" + port + "/" + db
+		String url="jdbc:mysql://" + address + ":" + port+ "/"+db
 				+ "?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true";
 
 		Class.forName("com.mysql.jdbc.Driver");

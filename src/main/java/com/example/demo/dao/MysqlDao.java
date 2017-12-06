@@ -24,6 +24,17 @@ public class MysqlDao {
 
     }
 
+    public static void createDatabase(){
+
+        String sql ="create database test; use test;";
+        try {
+            DBUtil.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void createTable(){
 
         String sql = "CREATE TABLE news " +
