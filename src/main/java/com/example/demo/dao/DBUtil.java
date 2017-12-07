@@ -1,11 +1,12 @@
 package com.example.demo.dao;
 
+import java.net.Socket;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.lang.Runtime;
 public class DBUtil {
 
 	public static Connection getConnection() throws Exception{
@@ -19,6 +20,7 @@ public class DBUtil {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(url,username,password);
+
 
 		return conn;
 	}
