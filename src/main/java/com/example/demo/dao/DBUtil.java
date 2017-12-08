@@ -1,40 +1,61 @@
 package com.example.demo.dao;
 
-import java.net.Socket;
+import com.example.demo.util.ConnectionDB;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.lang.Runtime;
 public class DBUtil {
 
+
 	public static Connection getConnection() throws Exception{
-		String address = System.getenv("MYSQL_ADDRESS");
-		String port = System.getenv("MYSQL_PORT");
-		String username=System.getenv("MYSQL_USERNAME");
-		String password=System.getenv("MYSQL_PASSWORD");
-		String db="test";
-		String url="jdbc:mysql://" + address + ":" + port+ "/"+db
+		ConnectionDB connectionDB=new ConnectionDB();
+
+
+		String url="jdbc:mysql://" + ConnectionDB.address + ":" + ConnectionDB.port
 				+ "?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true";
 
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection(url,username,password);
+		Connection conn = DriverManager.getConnection(url,ConnectionDB.username,ConnectionDB.password);
 
 
 		return conn;
 	}
 
+	public static Connection getConnection(String db) throws Exception{
+
+
+		String url="jdbc:mysql://" + ConnectionDB.address + ":" + ConnectionDB.port +"/"+ db
+				+ "?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true";
+
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(url,ConnectionDB.username,ConnectionDB.password);
+
+
+		return conn;
+	}
+
+
+
 	public static int executeUpdate(String sql)  throws Exception {
 		int rows = 0;		
+		Connection conn = getConnection("test");
+		Statement stmt  =conn.createStatement();
+		rows = stmt.executeUpdate(sql);
+		closeAll(conn, stmt, null);
+		return rows;
+	}
+
+	public static int executeCreateDatabase(String sql)  throws Exception {
+		int rows = 0;
 		Connection conn = getConnection();
 		Statement stmt  =conn.createStatement();
 		rows = stmt.executeUpdate(sql);
 		closeAll(conn, stmt, null);
 		return rows;
 	}
-	
-	
 	
 	public static void closeAll(Connection conn,Statement stmt,ResultSet res) throws SQLException {
 		if(res!=null){
@@ -50,7 +71,7 @@ public class DBUtil {
 	
 	public static int executePreparedUpdate(String sql,Object...objs)  throws Exception {
 	
-		Connection conn = getConnection();
+		Connection conn = getConnection("test");
 		PreparedStatement pre=conn.prepareStatement(sql);
 		for (int i = 0; i < objs.length; i++) {
 			pre.setObject(i+1, objs[i]);
@@ -61,7 +82,7 @@ public class DBUtil {
 	}
 	public static List<Map<String,Object>> executeQuery(String sql,Object...objs) throws Exception
 	{
-		Connection conn = getConnection();
+		Connection conn = getConnection("test");
 		PreparedStatement pre=conn.prepareStatement(sql);
 		for (int i = 0; i < objs.length; i++) {
 			pre.setObject(i+1, objs[i]);

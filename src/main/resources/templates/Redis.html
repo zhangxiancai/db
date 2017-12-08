@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    </meta>
+    <title>Title</title>
+</head>
+
+<body>
+<h2>Redis数据库测试页面：</h2>
+<div class="first">
+    <h3>1:</h3>
+
+    <form action="connection" method="get">
+
+
+        <p>
+            <span>地址:</span> <input type="text" value="127.0.0.1" name="address"/>
+        </p>
+        <p>
+            <span>端口:</span> <input type="text" value="3306" name="address"/>
+        </p>
+        <p>
+            <input type="submit" value="连接"/> <span th:text="${message1}"></span>
+        </p>
+    </form>
+</div>
+
+<div>
+    <h3>2:</h3>
+
+    <form action="set" method="get">
+
+        <p>
+            <span>key:</span> <input type="text" value="name" name="key"/>
+        </p>
+        <p>
+            <span>value:  </span> <input type="text" value="jack" name="value"/>
+        </p>
+
+        <p>
+            <input type="submit" value="插入数据"/> <span th:text="${message4}"></span>
+        </p>
+    </form>
+</div>
+
+<div>
+    <h3>3:</h3>
+    <form action="get" method="get">
+
+        <p>
+            <span>key:</span> <input type="text" value="name" name="key"/>
+        </p>
+
+
+        <p>
+            <input type="submit" value="查询数据"/> <span th:text="${key}"></span>
+        </p>
+    </form>
+</div>
+
+
+</body>
+
+<style type="text/css">
+
+    div {
+        /*background-color:gray;*/
+        margin: 10px;
+    }
+
+</style>
+
+
+</html>

@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.util.ConnectionDB;
 import redis.clients.jedis.*;
 
 import java.util.ArrayList;
@@ -93,8 +94,8 @@ public class RedisDao {
     }
 
     public static List<JedisShardInfo> getJedisShardInfo() {
-        String address = System.getenv("REDIS_ADDRESS");
-        String port = System.getenv("REDIS_PORT");
+        String address = ConnectionDB.address;
+        String port = ConnectionDB.port;
         String[] addresses=address.split(";");
         String[] ports=port.split(";");
         List<JedisShardInfo> jedisShardInfos= new ArrayList<>();
@@ -107,4 +108,6 @@ public class RedisDao {
         return jedisShardInfos;
 
     }
+
+
 }

@@ -1,15 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> </meta>
     <title>Title</title>
 </head>
-<body>
-<h1>news:</h1>
-<tr th:each="new,iterStat :${news}">
-    <td th:text="${new.id}"></td>
-    <td th:text="${new.title}"></td>
-</tr>
 
+<body>
+<h2>MYSQL数据库测试页面：</h2>
+<div class="first">
+<h3>1:</h3>
+
+<form action="Mysql_connection" method="get">
+
+
+    <p>
+        <span>地址:</span> <input type="text" value="127.0.0.1" name="address"/>
+    </p>
+    <p>
+        <span>端口:  </span> <input type="text" value="3306" name="port"/>
+    </p>
+    <p>
+        <span>用户名:</span> <input type="text" value="root" name="username"/>
+    </p>
+    <p>
+        <span>密码:  </span> <input type="text" value="password" name="password"/>
+    </p>
+    <p>
+    <input  type="submit" value="连接"/> <span  th:text="${message1}"></span>
+    </p>
+</form>
+</div>
+<div class="first">
+<h3>2:</h3>
+<p><a href="createDatabase">创建数据库:test</a>
+ <span  th:text="${message2}"></span></p>
+
+<p><a href="createTable">创建表:user</a>
+    <span  th:text="${message3}"></span></p>
+
+</div>
+<div>
+<h3>3:</h3>
+
+<form action="insertData" method="get">
+
+
+    <p>
+        <span>id:</span> <input type="text" placeholder="自增不用填^.^" name="id" readonly="readonly"/>
+    </p>
+    <p>
+        <span>name:  </span> <input type="text" value="jack" name="name"/>
+    </p>
+
+    <p>
+        <input  type="submit" value="插入数据"/> <span  th:text="${message4}"></span>
+    </p>
+</form>
+
+
+<p><a href="showData">显示数据：</a><lable>(显示前十条)</lable>
+    </p>
+<table>
+<tr>
+    <td>id</td>
+    <td>name</td>
+    <td>createdate</td>
+</tr>
+<tr th:each="user,iterStat :${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.createdate}"></td>
+</tr>
+</table>
+</div>
 </body>
+
+<style type="text/css">
+
+   div{
+       /*background-color:gray;*/
+       margin: 10px;
+   }
+
+
+</style>
+
+
 </html>
